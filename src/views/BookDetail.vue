@@ -17,16 +17,15 @@ const { error, fetchData } = useFetch();
 watch(
   () => route.params.bookId,
   async (bookId) => {
-    // if (Number.isInteger(Number(bookId))) {
+    if (bookId === "new") {
+      isNew.value = true;
+      return;
+    }
     if (bookId || Number.isInteger(Number(bookId))) {
       bookData.value = await fetchData({
         url: `https://fe-interview-api.unnotech.com/books/${bookId}/`,
       });
       formData.value = { ...bookData.value };
-      return;
-    }
-    if (bookId === "new") {
-      isNew.value = true;
     }
   },
   { immediate: true }
